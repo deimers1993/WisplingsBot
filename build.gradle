@@ -1,11 +1,3 @@
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-
 buildscript {
     ext.kotlin_version = "1.9.10"
     repositories {
