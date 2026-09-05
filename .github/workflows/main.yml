@@ -1,4 +1,4 @@
-name: Build APK v6 OPTIMIZADA
+name: Build APK v6 FIX
 on:
   push:
     branches: [ main, master ]
@@ -13,15 +13,12 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - uses: android-actions/setup-android@v3
-      - name: Fix wrapper
-        run: |
-          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
-            mkdir -p gradle/wrapper
-            curl -L -o gradle/wrapper/gradle-wrapper.jar https://github.com/gradle/gradle/raw/master/gradle/wrapper/gradle-wrapper.jar
-          fi
-          chmod +x gradlew
-      - run: ./gradlew assembleDebug --stacktrace
+      - name: Setup Gradle 8.4 (sin wrapper)
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.4
+      - run: gradle assembleDebug --stacktrace
       - uses: actions/upload-artifact@v4
         with:
-          name: WisplingsBot-v6-OPTIMIZADA-APK
+          name: WisplingsBot-v6-FIX-APK
           path: app/build/outputs/apk/debug/app-debug.apk
